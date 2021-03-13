@@ -25,9 +25,9 @@ Author Affiliations:
 
 # Resource
 
-1. Study cohorts of Colorectal cancer patients, including demographic characteristics: Age at sequencing report, Sex, histological subtype, sequencing center/assays, and detailed tumor sample descrption.  
+### R1. Study cohorts of Colorectal cancer patients, including demographic characteristics: Age at sequencing report, Sex, histological subtype, sequencing center/assays, and detailed tumor sample descrption.  
 
-2. Somatic mutation data with functional annotation including: 
+### R2. Somatic mutation data with functional annotation including: 
  ```
 3'UTR
 5'UTR
