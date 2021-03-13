@@ -72,33 +72,45 @@ dev.off()
 
 ### foreast plot #####
 # An example for foreast plot searched from the google. 
-"/Users/xingyi/Dropbox/project/GENIE/CRC/newanalysis03082021/R"
+### "/Users/xingyi/Dropbox/project/GENIE/CRC/newanalysis03082021/R" ###
+### figure: forest plot ####
+library(forestplot)
 library(metafor)
+genes_df <- read.table("GENIE_DiffGENE_EarlyvsTypical_CRC_02192021-MSS-ALL.txt", header=T, sep="\t")
+genes_df <- genes_df[genes_df$P > 0 & genes_df$P < 0.05,c(1:7)]
 
-### copy BCG vaccine meta-analysis data into 'dat'
-dat <- dat.bcg
- 
-### calculate log risk ratios and corresponding sampling variances (and use
-### the 'slab' argument to store study labels as part of the data frame)
-dat <- escalc(measure="RR", ai=tpos, bi=tneg, ci=cpos, di=cneg, data=dat,
-              slab=paste(author, year, sep=", "))
- 
-### fit random-effects model
-res <- rma(yi, vi, data=dat)
- 
-### forest plot with extra annotations
-forest(res, atransf=exp, at=log(c(.05, .25, 1, 4)), xlim=c(-16,6),
-       ilab=cbind(dat.bcg$tpos, dat.bcg$tneg, dat.bcg$cpos, dat.bcg$cneg),
-       ilab.xpos=c(-9.5,-8,-6,-4.5), cex=.75, header="Author(s) and Year",
-       mlab="")
-op <- par(cex=.75, font=2)
-text(c(-9.5,-8,-6,-4.5), 15, c("TB+", "TB-", "TB+", "TB-"))
-text(c(-8.75,-5.25),     16, c("Vaccinated", "Control"))
-par(op)
- 
-### add text with Q-value, dfs, p-value, and I^2 statistic
-text(-16, -1, pos=4, cex=0.75, bquote(paste("RE Model (Q = ",
-     .(formatC(res$QE, digits=2, format="f")), ", df = ", .(res$k - res$p),
-     ", p = ", .(formatC(res$QEp, digits=2, format="f")), "; ", I^2, " = ",
-     .(formatC(res$I2, digits=1, format="f")), "%)")))
+labs <- genes_df$Gene
+yi   <- genes_df$Beta
+sei  <- genes_df$SE
+res  <- rma(yi=yi, sei=sei, method="FE")
+data <- structure(list(OR  = c(NA,genes_df$OR),
+                       low = c(NA,genes_df$X95CI1),
+                       high = c(NA,genes_df$X95CI2)),
+                       .Names = c("OR", "low", "high"),
+                 #      row.names = c(NA,-11L), 
+                       class = "data.frame")
 
+labels <- cbind(c("Gene_ID","Gene_1","Gene_2","Gene_3","Gene_4","Gene_5","Gene_6"),
+                   c("HR","0.83","0.61","0.85","0.77","0.75","0.81"),
+                   c("low","0.78","0.51","0.8","0.7","0.68","0.76"),
+                   c("high","0.89","0.74","0.9","0.84","0.83","0.87"))
+
+print("....Creating the plot....")
+#jpeg(filename="Hazard_ratio_plot.jpg",units="cm",width=20,height=17, res=800)
+pdf("MSS-all.pdf")
+forestplot(labels,
+           data,new_page = TRUE,
+           boxsize = .25,
+           zero = 0.707,
+           ci.vertices = TRUE,
+           ci.vertices.height = 0.25,
+           xlog=TRUE,
+           cex = 0.1,
+           graph.pos = 2,
+           lwd.zero = gpar(lty=1, alpha = 1),
+           lineheight = "auto",
+           title = " ",
+           txt_gp = fpTxtGp(label=gpar(fontfamily="Calibri")),
+           col = fpColors(box="blue",line="black",zero = "black"),
+           xlab="Odd ratio")
+dev.off()
