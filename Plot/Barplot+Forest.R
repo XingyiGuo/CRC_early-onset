@@ -71,10 +71,10 @@ barplot(t(out.mbar[,2:3]),beside=TRUE,col=coul,density= den1, angle=ang1, ylim=c
 dev.off()
 
 ### foreast plot #####
-
+# An example for foreast plot searched from the google. 
 "/Users/xingyi/Dropbox/project/GENIE/CRC/newanalysis03082021/R"
 library(metafor)
- 
+
 ### copy BCG vaccine meta-analysis data into 'dat'
 dat <- dat.bcg
  
