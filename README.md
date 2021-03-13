@@ -72,8 +72,8 @@ cliS<- fread("PATH/GENIE_9/data_clinical_sample.txt",sep="\t",head=TRUE)
 2) To perform additional QC if assays cover less than 50K bps. 
 3) We additional examined the boxplot of TMB by assays to remove outliners.
 ```
-PANEL<-read.table("/scratch/sbcs/guox3/Project-earlyonset/Endometrial/GENIE_9/genomic_information_noFalse.txt",head=TRUE,sep="\t")
-TMB_ref<-read.table("/scratch/sbcs/guox3/Project-earlyonset/CRC/GENIE_PANEL.COV",head=TRUE)
+PANEL<-read.table("PATH/GENIE_9/genomic_information_noFalse.txt",head=TRUE,sep="\t")
+TMB_ref<-read.table("PATH../CRC../GENIE_PANEL.COV",head=TRUE)
 ```
 
 more information see main.R 
