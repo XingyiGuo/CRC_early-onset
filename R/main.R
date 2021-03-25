@@ -23,7 +23,7 @@ library(ggplot2)
 require(scales)
 
 library(data.table)
-mutation<-c("Frame_Shift_Del","Frame_Shift_Ins","In_Frame_Del","In_Frame_Del","Missense_Mutation","Nonsense_Mutation","Nonstop_Mutation","Splice_Site","Translation_Start_Site")
+mutation<-c("Frame_Shift_Del","Frame_Shift_Ins","In_Frame_Del","In_Frame_Ins","Missense_Mutation","Nonsense_Mutation","Nonstop_Mutation","Splice_Site","Translation_Start_Site")
 
 mut.dat<-fread(".../path/...Project-earlyonset/Endometrial/GENIE_9/data_mutations_extended.txt",head=TRUE,sep = "\t")
 
